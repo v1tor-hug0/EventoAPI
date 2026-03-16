@@ -9,5 +9,7 @@ public partial class TipoUsuario
 
     public string Nome { get; set; } = null!;
 
+    public virtual ICollection<Evento> Evento { get; set; } = new List<Evento>();
+
     public virtual ICollection<Usuario> Usuario { get; set; } = new List<Usuario>();
 }

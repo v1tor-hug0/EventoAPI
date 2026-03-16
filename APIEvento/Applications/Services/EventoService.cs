@@ -36,7 +36,6 @@ namespace APIEvento.Applications.Services
             return EventoParaDTO.ConverterParaDto(evento);
         }
 
-        // Recebe apenas o DTO com a lista de IDs de usuários
         public LerEventoDTO Adicionar(AdicionarEventoDTO criarEventoDTO)
         {
             if (string.IsNullOrWhiteSpace(criarEventoDTO.Nome))
@@ -51,10 +50,13 @@ namespace APIEvento.Applications.Services
             if (_repository.NomeExiste(criarEventoDTO.Nome))
                 throw new DomainException("Já existe um evento com esse nome.");
 
+            // Valida e mapeia os IDs de usuários para inscrições
             var inscricoes = criarEventoDTO.InscritosUsuarioIds?
                 .Select(uId =>
                 {
                     var usuario = _usuarioRepository.ObterPorId(uId);
+                    if (usuario == null)
+                        throw new DomainException($"Usuário com id {uId} não encontrado.");
                     return new Inscricao { UsuarioId = uId };
                 })
                 .ToList() ?? new List<Inscricao>();
@@ -64,7 +66,7 @@ namespace APIEvento.Applications.Services
                 Nome = criarEventoDTO.Nome,
                 Local = criarEventoDTO.Local,
                 DataEvento = criarEventoDTO.DataEvento,
-                Inscricao = inscricoes
+                Inscricao = criarEventoDTO.InscricaoId
             };
 
             _repository.Adicionar(evento);
@@ -88,15 +90,10 @@ namespace APIEvento.Applications.Services
             eventoBanco.Nome = atualizarEventoDTO.Nome;
             eventoBanco.Local = atualizarEventoDTO.Local;
             eventoBanco.DataEvento = atualizarEventoDTO.DataEvento;
+            eventoBanco.UsuarioId = atualizarEventoDTO.UsuarioId; 
+            eventoBanco.TipoUsuarioID = atualizarEventoDTO.TipoUsuarioId;
+            eventoBanco.InscricaoId = atualizarEventoDTO.InscricaoId;
 
-            // Atualiza inscrições a partir dos IDs (valida usuários)
-            eventoBanco.Inscricao = atualizarEventoDTO.InscritosUsuarioIds?
-                .Select(uId =>
-                {
-                    var usuario = _usuarioRepository.ObterPorId(uId);
-                    return new Inscricao { UsuarioId = uId };
-                })
-                .ToList() ?? eventoBanco.Inscricao;
 
             _repository.Atualizar(eventoBanco);
             return EventoParaDTO.ConverterParaDto(eventoBanco);

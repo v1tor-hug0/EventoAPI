@@ -53,3 +53,29 @@ CREATE TABLE Log_AlteracaoProduto(
 	DataAnterior DECIMAL(10, 2),
 	EventoID INT FOREIGN KEY REFERENCES Evento(EventoID)
 );
+
+ALTER TABLE Evento
+ADD UsuarioId INT,
+    InscricaoId INT
+GO
+
+ALTER TABLE Evento
+ADD CONSTRAINT FK_Evento_Usuario
+FOREIGN KEY (UsuarioId) REFERENCES Usuario(UsuarioId)
+GO
+
+ALTER TABLE Evento
+ADD CONSTRAINT FK_Evento_Inscricao
+FOREIGN KEY (InscricaoId) REFERENCES Inscricao(InscricaoId)
+GO
+
+ALTER TABLE Evento
+ADD TipoUsuarioID INT
+GO 
+
+ALTER TABLE Evento
+ADD CONSTRAINT FK_Evento_TipoUsuario
+FOREIGN KEY (TipoUsuarioID) REFERENCES TipoUsuario(TipoUsuarioID)
+GO
+
+select * from TipoUsuario

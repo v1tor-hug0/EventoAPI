@@ -146,3 +146,4 @@ C:\Users\43159446883\Desktop\APIEvento\APIEvento\obj\Debug\net8.0\APIEvento.pdb
 C:\Users\43159446883\Desktop\APIEvento\APIEvento\obj\Debug\net8.0\APIEvento.genruntimeconfig.cache
 C:\Users\43159446883\Desktop\APIEvento\APIEvento\obj\Debug\net8.0\ref\APIEvento.dll
 C:\Users\43159446883\Desktop\APIEvento\APIEvento\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\43159446883\Desktop\APIEvento\APIEvento\obj\Debug\net8.0\APIEvento.sourcelink.json

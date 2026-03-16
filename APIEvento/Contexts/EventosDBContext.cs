@@ -53,6 +53,18 @@ public partial class EventosDBContext : DbContext
             entity.Property(e => e.Nome)
                 .HasMaxLength(150)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.Inscricao).WithMany(p => p.Evento)
+                .HasForeignKey(d => d.InscricaoId)
+                .HasConstraintName("FK_Evento_Inscricao");
+
+            entity.HasOne(d => d.TipoUsuario).WithMany(p => p.Evento)
+                .HasForeignKey(d => d.TipoUsuarioID)
+                .HasConstraintName("FK_Evento_TipoUsuario");
+
+            entity.HasOne(d => d.Usuario).WithMany(p => p.Evento)
+                .HasForeignKey(d => d.UsuarioId)
+                .HasConstraintName("FK_Evento_Usuario");
         });
 
         modelBuilder.Entity<Inscricao>(entity =>
@@ -61,7 +73,7 @@ public partial class EventosDBContext : DbContext
 
             entity.HasIndex(e => new { e.EventoId, e.UsuarioId }, "UQ_Inscricao").IsUnique();
 
-            entity.HasOne(d => d.Evento).WithMany(p => p.Inscricao)
+            entity.HasOne(d => d.EventoNavigation).WithMany(p => p.InscricaoNavigation)
                 .HasForeignKey(d => d.EventoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Inscricao__Event__5629CD9C");

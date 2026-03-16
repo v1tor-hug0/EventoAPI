@@ -11,8 +11,6 @@ namespace APIEvento.DTOs.EventoDTO
         public DateTime Data { get; set; }
         public ICollection<Inscricao> Inscricao { get; set; }
 
-        public int? UsuarioID { get; set; }
-        public string? UsuarioNome { get; set; }
-        public string? UsuarioEmail { get; set; }
+
     }
 }

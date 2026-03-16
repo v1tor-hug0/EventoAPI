@@ -4,8 +4,9 @@ using System.Security.Claims;
 using System.Text;
 using APIEvento.Domains;
 using APIEvento.Exceptions;
+using System.Reflection.Metadata.Ecma335;
 
-namespace APIEvento.DTOs.AutenticacaoDto
+namespace APIEvento.Applications.Autenticacao
 {
     public class GeradorTokenJwt
     {

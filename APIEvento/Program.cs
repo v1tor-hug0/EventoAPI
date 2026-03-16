@@ -1,13 +1,13 @@
-using APIEvento.Applications.Services;
-using APIEvento.Contexts;
-using APIEvento.DTOs.AutenticacaoDto;
-using APIEvento.Interfaces;
-using APIEvento.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using APIEvento.Contexts;
+using APIEvento.Repositories;
+using APIEvento.Applications.Services;
+using APIEvento.Controllers;
+using APIEvento.Interfaces;
+using APIEvento.Applications.Autenticacao;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +20,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EventosDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+//Ususario
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
+
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
+builder.Services.AddScoped<EventoService>();
+
+builder.Services.AddScoped<IInscricaoRepository, InscricaoRepository>();
+builder.Services.AddScoped<InscricaoService>();
 
 builder.Services.AddScoped<GeradorTokenJwt>();
 builder.Services.AddScoped<AutenticacaoService>();
@@ -91,6 +98,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication(); // Habilita o sistema de autenticação (JWT)
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,4 +1,5 @@
-﻿using APIEvento.Domains;
+﻿using APIEvento.Applications.Autenticacao;
+using APIEvento.Domains;
 using APIEvento.DTOs.AutenticacaoDto;
 using APIEvento.Interfaces;
 

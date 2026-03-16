@@ -11,7 +11,9 @@ public partial class Inscricao
 
     public int UsuarioId { get; set; }
 
-    public virtual Evento Evento { get; set; } = null!;
+    public virtual ICollection<Evento> Evento { get; set; } = new List<Evento>();
+
+    public virtual Evento EventoNavigation { get; set; } = null!;
 
     public virtual Usuario Usuario { get; set; } = null!;
 }

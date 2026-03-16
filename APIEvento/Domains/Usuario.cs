@@ -19,6 +19,8 @@ public partial class Usuario
 
     public virtual Especialidade? Especialidade { get; set; }
 
+    public virtual ICollection<Evento> Evento { get; set; } = new List<Evento>();
+
     public virtual ICollection<Inscricao> Inscricao { get; set; } = new List<Inscricao>();
 
     public virtual TipoUsuario TipoUsuario { get; set; } = null!;
